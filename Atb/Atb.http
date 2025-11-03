@@ -1,0 +1,6 @@
+@Atb_HostAddress = https://localhost:5065
+
+GET {{Atb_HostAddress}}/api/categories
+Accept: application/json
+
+###
