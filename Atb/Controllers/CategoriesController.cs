@@ -69,6 +69,16 @@ public class CategoriesController : ControllerBase
         var category = await myAppDbContext.Categories.FindAsync(id);
         if (category == null) return NotFound();
 
+        //отримується сама назва файлу з повного шляху
+        var imageFileName = Path.GetFileName(category.Image);
+        //Абсолютний шлях до файлу
+        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "images", imageFileName);
+        //перевіряємо чи існує файл
+        if (System.IO.File.Exists(imagePath)){
+            //видаляємо файл зображення з файлової системи
+            System.IO.File.Delete(imagePath);
+        }
+
         //видаляємо категорію з бази даних
         myAppDbContext.Categories.Remove(category);
         await myAppDbContext.SaveChangesAsync();
